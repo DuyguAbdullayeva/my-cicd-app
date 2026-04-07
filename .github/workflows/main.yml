@@ -1,27 +1,33 @@
-name: CI-CD-Separated-Pipeline
+name: CI-CD Pipeline
 
 on:
   push:
     branches: [ "main" ]
 
 jobs:
-  CI_Stage_Build_And_Test:
-    name: "CI: Build and Test"
+  CI:
+    name: "CI: Check Project"
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
-      - name: Build
-        run: echo "Build successful"
 
-      - name: Test
-        run: echo "Tests passed"
+      - name: List Files
+        run: ls -la
 
-  CD_Stage_Deploy_To_Render:
+      - name: Check index.html
+        run: |
+          if [ ! -f index.html ]; then
+            echo "index.html not found!"
+            exit 1
+          fi
+
+  CD:
     name: "CD: Deploy"
-    needs: CI_Stage_Build_And_Test
+    needs: CI
     runs-on: ubuntu-latest
+
     steps:
-      - name: Deploy
+      - name: Deploy to Render
         run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
