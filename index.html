@@ -1,8 +1,53 @@
 <!DOCTYPE html>
-<html>
-<head><title>CI/CD Test</title></head>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CI/CD Test</title>
+    <style>
+        /* Ümumi bədən dizaynı */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        /* Başlıq stili */
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+
+        /* Paragraf stili */
+        p {
+            font-size: 1.5em;
+            max-width: 600px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        /* Sadə animasiya */
+        h1, p {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
 <body>
     <h1>Mənim CI/CD tətbiqim canlıdadır!</h1>
-    <p>Bu proyekt tam avtomatlaşdırılmışdır.</p>
+    <p>Bu proyekt tam avtomatlaşdırılmışdır və hər push sonrası deploy olunur.</p>
 </body>
 </html>
