@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CI/CD Test</title>
+    <title>CI/CD Demo - Duyğu Abdullayeva</title>
     <style>
-        /* Ümumi bədən dizaynı */
+        /* Ümumi dizayn */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(to right, #6a11cb, #2575fc);
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
             color: #ffffff;
             display: flex;
             flex-direction: column;
@@ -16,38 +16,60 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 0 20px;
+            padding: 20px;
             text-align: center;
         }
 
-        /* Başlıq stili */
+        /* Başlıq */
         h1 {
             font-size: 3em;
-            margin-bottom: 0.5em;
+            margin-bottom: 0.3em;
             text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-        }
-
-        /* Paragraf stili */
-        p {
-            font-size: 1.5em;
-            max-width: 600px;
-            line-height: 1.6;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-        }
-
-        /* Sadə animasiya */
-        h1, p {
             animation: fadeIn 1.5s ease-in-out;
         }
 
+        /* Alt başlıq */
+        h2 {
+            font-size: 2em;
+            margin: 0.3em 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Paragraf */
+        p {
+            font-size: 1.3em;
+            max-width: 700px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            animation: fadeIn 2.5s ease-in-out;
+        }
+
+        /* Sadə animasiya */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px);}
             to { opacity: 1; transform: translateY(0);}
         }
+
+        /* Box dizayn üçün info */
+        .info-box {
+            background: rgba(0,0,0,0.3);
+            padding: 20px 40px;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            animation: fadeIn 3s ease-in-out;
+        }
     </style>
 </head>
 <body>
-    <h1>Mənim CI/CD tətbiqim canlıdadır!</h1>
-    <p>Bu proyekt tam avtomatlaşdırılmışdır və hər push sonrası deploy olunur.</p>
+    <h1>Mənim CI/CD Tətbiqim Canlıdır!</h1>
+    <h2>Duyğu Abdullayeva</h2>
+    <div class="info-box">
+        <p>Azərbaycan Texniki Universiteti</p>
+        <p>Komputer Riyaziyyatı</p>
+        <p>2025 - 2027</p>
+        <p>DevOps Təcrübəsi</p>
+    </div>
 </body>
 </html>
