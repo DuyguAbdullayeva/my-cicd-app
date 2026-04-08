@@ -1,33 +1,82 @@
-name: CI-CD Pipeline
+name: Data Analysis CI/CD
 
 on:
+  pull_request:
+    branches: [ "main" ]
   push:
     branches: [ "main" ]
 
 jobs:
-  CI:
-    name: "CI: Check Project"
-    runs-on: ubuntu-latest
 
+  Build_Test:
+    name: "CI: Test Analysis Scripts"
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: List Files
-        run: ls -la
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-      - name: Check index.html
+      - name: Install dependencies
+        run: pip install numpy pandas pytest
+
+      - name: Validate script syntax
         run: |
-          if [ ! -f index.html ]; then
-            echo "index.html not found!"
-            exit 1
-          fi
+          python -c "import ast; ast.parse(open('analysis.py').read())"
+          echo "Syntax OK"
 
-  CD:
-    name: "CD: Deploy"
-    needs: CI
+      - name: Run unit tests
+        run: pytest tests/ -v --tb=short
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: tests/
+
+  Build_Deploy:
+    name: "CD: Build and Deploy Report"
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
-
     steps:
-      - name: Deploy to Render
-        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install numpy pandas
+
+      - name: Run analysis and generate report
+        run: python analysis.py
+
+      - name: Prepare release directory
+        run: |
+          mkdir -p release
+          cp report.txt release/
+          echo "Build date: $(date)" >> release/release-info.txt
+          echo "Commit: ${{ github.sha }}" >> release/release-info.txt
+
+      - name: Simulate deployment
+        run: |
+          echo "=============================="
+          echo "   DEPLOYMENT SIMULATION LOG  "
+          echo "=============================="
+          echo "Version: ${{ github.sha }}"
+          echo "Branch:  ${{ github.ref_name }}"
+          echo "Time:    $(date)"
+          echo "Status:  Successfully deployed!"
+          echo "=============================="
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-package
+          path: release/
